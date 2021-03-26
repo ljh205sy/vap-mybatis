@@ -3,10 +3,13 @@ package net.codingme.boot.domain.mapper;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import net.codingme.boot.domain.SysRole;
 import net.codingme.boot.domain.SysUser;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.StringUtils;
@@ -23,10 +26,22 @@ import java.util.List;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class SysUserMapperTest {
-
+    private Logger logger = LoggerFactory.getLogger(getClass());
     @Resource
     private SysUserMapper sysUserMapper;
 
+    
+    @Test
+    public void queryUserAndRoles(){
+        List<SysUser> userList = sysUserMapper.queryUserAndRoles();
+        for (SysUser sysUser : userList) {
+            List<SysRole> roleList = sysUser.getRoleList();
+            for (SysRole sysRole : roleList) {
+                logger.info(String.format("角色信息： %s", sysRole.getId() + sysRole.getName()));
+            }
+        }
+    }
+    
     @Test
     public void querySelectAll() {
         List<SysUser> sysUsers = sysUserMapper.selectAll();

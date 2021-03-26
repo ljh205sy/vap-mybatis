@@ -1,15 +1,13 @@
 package net.codingme.boot.domain;
 
-import javax.persistence.Id;
-import javax.persistence.Table;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author wh1107066
  */
-@Table(name = "sys_user")
 public class SysUser {
-    @Id
+
     private Integer id;
 
     private String avatar;
@@ -35,6 +33,16 @@ public class SysUser {
     private Date create_time;
 
     private Date update_time;
+
+    private List<SysRole> roleList;
+
+    public List<SysRole> getRoleList() {
+        return roleList;
+    }
+
+    public void setRoleList(List<SysRole> roleList) {
+        this.roleList = roleList;
+    }
 
     /**
      * @return id

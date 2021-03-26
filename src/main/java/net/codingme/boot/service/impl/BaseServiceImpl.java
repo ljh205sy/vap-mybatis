@@ -13,6 +13,10 @@ public class BaseServiceImpl<T, ID extends Serializable> implements BaseService<
 
     private BaseMapper<T> baseMapper;
 
+    /**
+     *  spring中进行Mapper的注入
+     * @param baseMapper
+     */
     public void setBaseMapper(BaseMapper<T> baseMapper) {
         this.baseMapper = baseMapper;
     }

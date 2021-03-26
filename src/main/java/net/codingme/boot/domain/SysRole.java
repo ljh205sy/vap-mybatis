@@ -1,15 +1,12 @@
 package net.codingme.boot.domain;
 
-import javax.persistence.Id;
-import javax.persistence.Table;
 import java.util.Date;
 
 /**
  * @author wh1107066
  */
-@Table(name = "sys_role")
 public class SysRole {
-    @Id
+
     private Integer id;
 
     private String name;

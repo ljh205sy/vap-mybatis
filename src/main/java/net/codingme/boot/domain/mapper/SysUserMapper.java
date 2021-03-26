@@ -22,4 +22,6 @@ public interface SysUserMapper extends MySqlMapper<SysUser>, Mapper<SysUser> {
     List<SysUser> queryUserList();
 
     List<SysUser> selectByIds(@Param("ids") Object[] ids);
+
+    List<SysUser> queryUserAndRoles();
 }

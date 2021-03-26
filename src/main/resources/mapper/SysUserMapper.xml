@@ -15,21 +15,38 @@
         <result column="status" jdbcType="INTEGER" property="status"/>
         <result column="create_time" jdbcType="TIMESTAMP" property="create_time"/>
         <result column="update_time" jdbcType="TIMESTAMP" property="update_time"/>
+        <collection fetchType="lazy" property="roleList" ofType="net.codingme.boot.domain.SysRole">
+            <id column="rid" property="id"/>
+            <result column="rname" property="name"/>
+        </collection>
     </resultMap>
 
+    <!-- 一个用户有多个角色 -->
+    <select id="queryUserAndRoles" resultMap="BaseResultMap">
+        select user.*, role.id rid, role.name rname
+        from sys_user user,
+             sys_role role,
+             sys_user_role user_role
+        where user.id = user_role.user_id
+          and user_role.role_id = role.id
+    </select>
+
     <select id="queryByUsername" parameterType="string" resultType="net.codingme.boot.domain.SysUser">
-    select * from sys_user  where username=#{username}
-  </select>
+        select *
+        from sys_user
+        where username = #{username}
+    </select>
 
     <select id="queryUserList" resultType="net.codingme.boot.domain.SysUser">
-    select * from sys_user
-  </select>
+        select *
+        from sys_user
+    </select>
 
     <select id="selectByIds" resultType="net.codingme.boot.domain.SysUser">
         select * from sys_user user
         <where>
             user.id in
-            <foreach collection="ids" item="item" open="(" separator=","  close=")">
+            <foreach collection="ids" item="item" open="(" separator="," close=")">
                 #{item}
             </foreach>
         </where>

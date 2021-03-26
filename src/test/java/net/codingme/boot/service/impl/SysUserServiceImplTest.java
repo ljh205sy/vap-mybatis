@@ -41,6 +41,17 @@ public class SysUserServiceImplTest {
         }
     }
 
+    /**
+     * 通过example进行查询,模糊查询
+     */
+    @Test
+    public void querySelectByExample() {
+        List<SysUser> userList = sysUserService.querySelectByExample();
+        for (SysUser user : userList) {
+            System.out.println("查询的用户信息:" + user);
+        }
+    }
+
     @Test
     public void querySelectByPrimaryKey() {
         SysUser sysUser = sysUserService.selectByPrimaryKey(48);

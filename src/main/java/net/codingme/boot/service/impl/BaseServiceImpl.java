@@ -40,4 +40,5 @@ public class BaseServiceImpl<T, ID extends Serializable> implements BaseService<
     public int updateByPrimaryKey(T record) {
         return baseMapper.updateByPrimaryKey(record);
     }
+
 }

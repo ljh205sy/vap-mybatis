@@ -15,4 +15,9 @@ public interface SysUserService extends BaseService<SysUser, Integer>{
      * @return
      */
     List<SysUser> queryUserAndRoles();
+
+    /**
+     * 通过Example进行查询操作
+     */
+    List<SysUser>  querySelectByExample() ;
 }

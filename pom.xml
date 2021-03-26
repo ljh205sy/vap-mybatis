@@ -16,6 +16,12 @@
 
     <properties>
         <java.version>1.8</java.version>
+        <hutool-all.version>5.5.1</hutool-all.version>
+        <commons-lang3.version>3.8.1</commons-lang3.version>
+        <fastjson.version>1.2.49</fastjson.version>
+        <jackson-core.version>2.10.4</jackson-core.version>
+        <jackson-databind.version>2.10.4</jackson-databind.version>
+        <jackson-core-asl.version>1.9.13</jackson-core-asl.version>
     </properties>
 
     <dependencies>
@@ -37,11 +43,39 @@
             <scope>test</scope>
         </dependency>
 
+
+        <!-- begin 解决@RequestBody无法接收参数的异常  HTTP Status 415 – Unsupported Media Type -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>${jackson-core.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson-databind.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.jackson</groupId>
+            <artifactId>jackson-core-asl</artifactId>
+            <version>${jackson-core-asl.version}</version>
+        </dependency>
+        <!-- end  HTTP Status 415 – Unsupported Media Type -->
+
+        <!-- 集成 mockito 环境 -->
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>1.9.5</version>
+            <scope>test</scope>
+        </dependency>
+
         <!-- 阿里 fastjson -->
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>fastjson</artifactId>
-            <version>1.2.47</version>
+            <version>${fastjson.version}</version>
         </dependency>
 
         <!-- Lombok 工具 -->
@@ -56,6 +90,20 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
+        </dependency>
+
+        <!-- Hutool工具类 -->
+        <!-- https://mvnrepository.com/artifact/cn.hutool/hutool-all -->
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>${hutool-all.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>${commons-lang3.version}</version>
         </dependency>
 
         <!--添加数据库链接 -->

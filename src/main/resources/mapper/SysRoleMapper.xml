@@ -13,4 +13,12 @@
     <result column="update_time" jdbcType="TIMESTAMP" property="update_time" />
     <result column="status" jdbcType="INTEGER" property="status" />
   </resultMap>
+
+
+  <select id="queryRoleByRid" parameterType="integer" resultType="net.codingme.boot.domain.SysRole">
+    select * from sys_role
+    <where>
+      and id = #{rid}
+    </where>
+  </select>
 </mapper>

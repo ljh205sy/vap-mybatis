@@ -3,6 +3,7 @@ package net.codingme.boot.dao.mapper;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import net.codingme.boot.domain.SysRole;
 import net.codingme.boot.domain.SysUser;
 import net.codingme.boot.exception.UserNotExistException;
 import org.junit.Assert;
@@ -32,16 +33,33 @@ public class SysUserMapperTest {
     private SysUserMapper sysUserMapper;
 
 
-//    @Test
-//    public void queryUserAndRoles() {
-//        List<SysUser> userList = sysUserMapper.queryUserAndRoles();
-//        for (SysUser sysUser : userList) {
-//            List<SysRole> roleList = sysUser.getRoleList();
-//            for (SysRole sysRole : roleList) {
-//                logger.info(String.format("角色信息： %s", sysRole.getId() + sysRole.getName()));
-//            }
-//        }
-//    }
+    /**
+     *  一个用户，拥有多个角色，这个有带点问题
+     */
+    @Test
+    public void queryUserAndRoles() {
+        List<SysUser> userList = sysUserMapper.queryUserAndRoles();
+        for (SysUser sysUser : userList) {
+            logger.info(String.format("用户信息： %s", sysUser));
+            List<SysRole> roleList = sysUser.getRoles();
+            for (SysRole sysRole : roleList) {
+                logger.info(String.format("角色信息： %s", sysRole.getId() + sysRole.getName()));
+            }
+        }
+    }
+
+    @Test
+    public void queryUserAndRolesById() {
+        List<SysUser> userList = sysUserMapper.queryUserAndRolesById(48);
+        for (SysUser sysUser : userList) {
+            logger.info(String.format("用户信息： %s", sysUser));
+            List<SysRole> roleList = sysUser.getRoles();
+            for (SysRole sysRole : roleList) {
+                logger.info(String.format("角色信息： %s", sysRole.getId() + sysRole.getName()));
+            }
+        }
+    }
+
 
     /**
      * 查询所有数据

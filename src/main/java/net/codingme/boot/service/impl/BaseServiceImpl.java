@@ -4,9 +4,9 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import net.codingme.boot.dao.MybatisMapper;
 import net.codingme.boot.service.BaseService;
+import org.springframework.beans.factory.annotation.Autowired;
 import tk.mybatis.mapper.entity.Example;
 
-import javax.annotation.Resource;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
@@ -17,7 +17,7 @@ import java.util.List;
  */
 public abstract class BaseServiceImpl<T, ID extends Serializable> implements BaseService<T, ID> {
 
-    @Resource
+    @Autowired(required = false)
     protected MybatisMapper<T, ID> baseMapper;
 
     private Class<T> mapperClass;

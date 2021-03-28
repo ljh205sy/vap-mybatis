@@ -1,10 +1,14 @@
 package net.codingme.boot.domain;
 
 import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
 
+@Table(name = "book")
 public class Book {
 
+    @Id
     private Integer id;
 
     /**

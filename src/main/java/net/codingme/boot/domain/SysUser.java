@@ -37,14 +37,14 @@ public class SysUser {
 
     private Date update_time;
 
-    private List<SysRole> roleList;
+    private List<SysRole> roles;
 
-    public List<SysRole> getRoleList() {
-        return roleList;
+    public List<SysRole> getRoles() {
+        return roles;
     }
 
-    public void setRoleList(List<SysRole> roleList) {
-        this.roleList = roleList;
+    public void setRoles(List<SysRole> roles) {
+        this.roles = roles;
     }
 
     /**

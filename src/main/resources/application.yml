@@ -13,9 +13,9 @@ mapper:
   not-empty: false
 mybatis:
   configuration:
-    aggressive-lazy-loading: false
+    aggressive-lazy-loading: false  # 延迟加载
     lazy-load-trigger-methods: equals,clone,hashCode
-    lazy-loading-enabled: true
+    lazy-loading-enabled: true  # 延迟加载
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: net.codingme.boot.domain
 pagehelper:

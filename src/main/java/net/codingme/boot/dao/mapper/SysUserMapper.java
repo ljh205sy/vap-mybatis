@@ -21,5 +21,17 @@ public interface SysUserMapper extends MybatisMapper<SysUser, Integer> {
 
 //    List<SysUser> selectByIds(@Param("ids") Object[] ids);
 
+    /**
+     * 查询错误
+     * @return
+     */
     List<SysUser> queryUserAndRoles();
+
+    /**
+     *  查询正确，
+     * @param uid
+     * @return
+     */
+    List<SysUser>  queryUserAndRolesById(Integer uid);
+
 }

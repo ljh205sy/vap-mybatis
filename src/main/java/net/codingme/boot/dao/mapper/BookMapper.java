@@ -1,4 +1,4 @@
-package net.codingme.boot.domain.mapper;
+package net.codingme.boot.dao.mapper;
 
 import net.codingme.boot.domain.Book;
 import tk.mybatis.mapper.common.Mapper;

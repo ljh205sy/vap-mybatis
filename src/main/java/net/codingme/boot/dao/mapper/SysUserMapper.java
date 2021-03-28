@@ -1,16 +1,14 @@
-package net.codingme.boot.domain.mapper;
+package net.codingme.boot.dao.mapper;
 
+import net.codingme.boot.dao.MybatisMapper;
 import net.codingme.boot.domain.SysUser;
-import org.apache.ibatis.annotations.Param;
-import tk.mybatis.mapper.common.Mapper;
-import tk.mybatis.mapper.common.MySqlMapper;
 
 import java.util.List;
 
 /**
  * @author wh1107066
  */
-public interface SysUserMapper extends MySqlMapper<SysUser>, Mapper<SysUser> {
+public interface SysUserMapper extends MybatisMapper<SysUser, Integer> {
 
     /**
      *  通过username查询用户信息
@@ -21,7 +19,7 @@ public interface SysUserMapper extends MySqlMapper<SysUser>, Mapper<SysUser> {
 
     List<SysUser> queryUserList();
 
-    List<SysUser> selectByIds(@Param("ids") Object[] ids);
+//    List<SysUser> selectByIds(@Param("ids") Object[] ids);
 
     List<SysUser> queryUserAndRoles();
 }

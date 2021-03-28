@@ -20,4 +20,6 @@ public interface SysUserService extends BaseService<SysUser, Integer>{
      * 通过Example进行查询操作
      */
     List<SysUser>  querySelectByExample() ;
+
+    int deleteUser(SysUser sysUser);
 }

@@ -1,13 +1,16 @@
 package net.codingme.boot.domain;
 
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.Date;
 import java.util.List;
 
 /**
  * @author wh1107066
  */
+@Table(name = "sys_user")
 public class SysUser {
-
+    @Id
     private Integer id;
 
     private String avatar;

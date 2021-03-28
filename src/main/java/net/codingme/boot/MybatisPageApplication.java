@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 /**
  * @author wh1107066
  */
-@tk.mybatis.spring.annotation.MapperScan(basePackages = "net.codingme.boot.domain.mapper")
+@tk.mybatis.spring.annotation.MapperScan(basePackages = "net.codingme.boot.dao.mapper")
 @SpringBootApplication
 @EnableTransactionManagement
 public class MybatisPageApplication {
@@ -15,5 +15,4 @@ public class MybatisPageApplication {
     public static void main(String[] args) {
         SpringApplication.run(MybatisPageApplication.class, args);
     }
-
 }

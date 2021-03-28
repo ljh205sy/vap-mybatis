@@ -1,4 +1,4 @@
-package net.codingme.boot.domain.mapper;
+package net.codingme.boot.dao.mapper;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;

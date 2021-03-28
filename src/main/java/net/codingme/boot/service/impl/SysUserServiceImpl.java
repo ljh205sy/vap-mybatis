@@ -1,10 +1,9 @@
 package net.codingme.boot.service.impl;
 
 import com.alibaba.druid.util.StringUtils;
+import net.codingme.boot.dao.mapper.SysUserMapper;
 import net.codingme.boot.domain.SysUser;
-import net.codingme.boot.domain.mapper.SysUserMapper;
 import net.codingme.boot.service.SysUserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
 
@@ -21,10 +20,11 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser, Integer> implem
     @Resource
     private SysUserMapper sysUserMapper;
 
-    @Autowired
-    public void setBaseMapper() {
-        super.setBaseMapper(sysUserMapper);
-    }
+    // 每个类都需要重写此方法
+//    @Override
+//    public MybatisMapper<SysUser, Integer> getMapper() {
+//        return sysUserMapper;
+//    }
 
     @Override
     public List<SysUser> queryUserAndRoles() {
@@ -45,4 +45,11 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser, Integer> implem
         List<SysUser> userList = sysUserMapper.selectByExample(example);
         return userList;
     }
+
+    @Override
+    public int deleteUser(SysUser sysUser) {
+        int number = sysUserMapper.deleteByExample(sysUser);
+        return number;
+    }
+
 }

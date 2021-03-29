@@ -1,10 +1,12 @@
 package net.codingme.boot.dao.mapper;
 
 
+import cn.hutool.core.collection.CollectionUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import net.codingme.boot.domain.SysRole;
 import net.codingme.boot.domain.SysUser;
+import net.codingme.boot.domain.SysUserRole;
 import net.codingme.boot.exception.UserNotExistException;
 import org.junit.Assert;
 import org.junit.Test;
@@ -17,6 +19,7 @@ import org.springframework.util.StringUtils;
 import tk.mybatis.mapper.entity.Example;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,10 +34,88 @@ public class SysUserMapperTest {
     private Logger logger = LoggerFactory.getLogger(getClass());
     @Resource
     private SysUserMapper sysUserMapper;
-
+    @Resource
+    private SysRoleMapper sysRoleMapper;
+    @Resource
+    private SysUserRoleMapper sysUserRoleMapper;
 
     /**
-     *  延迟加载
+     * 级联插入
+     * 新增用户的时候，插入角色信息
+     */
+    @Test
+    public void testInsertUserAndRoles() {
+        SysUser sysUser = new SysUser();
+        sysUser.setName("testuser");
+        sysUser.setUsername("testuseruname");
+        // 返回带有自动增长列的id值
+//        int one = sysUserMapper.insertSelective(sysUser);  // 返回的是操作的条数
+        System.out.println("id值:" + sysUser.getId());
+        int two = sysUserMapper.insertUseGeneratedKeys(sysUser);
+//        int three = sysUserMapper.insert(sysUser);
+//        sysUserMapper.insertList(list);
+
+        SysRole sysRole = sysRoleMapper.queryRoleByRid(6);
+        ArrayList<SysRole> rlist = new ArrayList<>();
+        rlist.add(sysRole);
+        sysUser.setRoles(rlist);
+
+        SysUserRole userRole = new SysUserRole();
+        userRole.setRoleId(sysRole.getId());
+        userRole.setUserId(sysUser.getId());
+        sysUserRoleMapper.insert(userRole);
+    }
+
+    @Test
+    public void updateUserAndRoles() {
+        SysUser sysUser = sysUserMapper.selectOne(new SysUser(252));
+
+        // 通过用户查询，该用户拥有的角色
+        List<SysRole> roles = sysRoleMapper.queryRoleCollectionUid(sysUser.getId());
+
+        List<Integer> ids = new ArrayList<>();
+        roles.stream().forEach(role -> {
+            ids.add(role.getId());
+        });
+
+        Example example = new Example(SysUserRole.class);
+        Example.Criteria criteria = example.createCriteria();
+        //模糊查询
+        if (!StringUtils.isEmpty(sysUser.getId())) {
+            criteria.andEqualTo("userId", sysUser.getId());
+        }
+
+        if(!CollectionUtil.isEmpty(ids)) {
+            criteria.andIn("roleId", ids);
+        }
+        // 删除中间表中该用户的角色信息
+        sysUserRoleMapper.deleteByExample(example);
+
+        // 插入该用户的角色信息
+        List<SysUserRole> userRoles = getSysUserRoles(sysUser.getId());
+        sysUserRoleMapper.insertList(userRoles);
+    }
+
+    private List<SysUserRole> getSysUserRoles(Integer uid) {
+        SysRole sysRole1 = sysRoleMapper.queryRoleByRid(6);
+        SysRole sysRole2 = sysRoleMapper.queryRoleByRid(17);
+
+        SysUserRole userRole = new SysUserRole();
+        userRole.setRoleId(sysRole1.getId());
+        userRole.setUserId(uid);
+
+        SysUserRole userRole2 = new SysUserRole();
+        userRole2.setRoleId(sysRole2.getId());
+        userRole2.setUserId(uid);
+
+        List<SysUserRole> sysUserRoles = new ArrayList<>();
+        sysUserRoles.add(userRole);
+        sysUserRoles.add(userRole2);
+        return sysUserRoles;
+    }
+
+    /**
+     * 延迟加载
      * 一个用户，拥有多个角色，延迟加载，通过参数传递，然后第二次查询
      */
     @Test
@@ -52,7 +133,7 @@ public class SysUserMapperTest {
     }
 
     /**
-     *  非延迟加载
+     * 非延迟加载
      * 通过用户，查询所有角色，非延迟加载
      */
     @Test

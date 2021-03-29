@@ -57,6 +57,21 @@ public abstract class BaseServiceImpl<T, ID extends Serializable> implements Bas
     }
 
     @Override
+    public int update(T record) {
+        return baseMapper.updateByPrimaryKey(record);
+    }
+
+    @Override
+    public Integer updateSelective(T record) {
+        return baseMapper.updateByPrimaryKeySelective(record);
+    }
+
+    @Override
+    public Integer updateSelectiveByExample(T record, Example example) {
+        return baseMapper.updateByExampleSelective(record, example);
+    }
+
+    @Override
     public T selectOne(T record) {
         return baseMapper.selectOne(record);
     }
@@ -65,6 +80,12 @@ public abstract class BaseServiceImpl<T, ID extends Serializable> implements Bas
     public int insertList(List<T> records) {
         return baseMapper.insertList(records);
     }
+
+    @Override
+    public int insertSelective(T record) {
+        return baseMapper.insertSelective(record);
+    }
+
 
     @Override
     public List<T> findByProperty(String property, Object value) {

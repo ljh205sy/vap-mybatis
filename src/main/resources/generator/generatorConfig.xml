@@ -45,11 +45,25 @@
 
         <!-- 要生成那些表(更改tableName和domainObjectName就可以) -->
 <!--        <table tableName="sys_user" domainObjectName="SysUser"/>-->
-        <table tableName="sys_role" domainObjectName="SysRole"
+<!--        <table tableName="sys_role" domainObjectName="SysRole"-->
+<!--               enableCountByExample="true" enableUpdateByExample="true"-->
+<!--               enableDeleteByExample="true" enableSelectByExample="true"-->
+<!--               selectByExampleQueryId="true">-->
+<!--            <property name="useActualColumnNames" value="true" />-->
+<!--        </table>-->
+
+        <table tableName="sys_user_role" domainObjectName="SysUserRole"
                enableCountByExample="true" enableUpdateByExample="true"
                enableDeleteByExample="true" enableSelectByExample="true"
                selectByExampleQueryId="true">
-            <property name="useActualColumnNames" value="true" />
+                <!-- 表字段原样输出-->
+                <!-- true：MyBatis Generator会使用数据库中实际的字段名字作为生成的实体类的属性名。-->
+       　　    <!--  false：这是默认值。如果设置为false,则MyBatis Generator会将数据库中实际的字段名字转换为Camel Case风格作为生成的实体类的属性名-->
+<!--            <property name="useActualColumnNames" value="true" />-->
+            <!-- 表字段驼峰输出到对应的类中-->
+            <property name="useActualColumnNames" value="false" />
+            <!-- -->
+            <generatedKey column="id" sqlStatement="mysql" identity="true"/>
         </table>
     </context>
 </generatorConfiguration>

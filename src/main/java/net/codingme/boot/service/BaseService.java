@@ -21,6 +21,17 @@ public interface BaseService<T, ID extends Serializable> {
      */
     int insert(T record);
 
+    /**
+     * 修改数据
+     * @param record
+     * @return
+     */
+    int update(T record);
+
+    Integer updateSelectiveByExample(T record, Example example);
+
+    Integer updateSelective(T record);
+
     T selectOne(T record);
 
     /**
@@ -55,4 +66,6 @@ public interface BaseService<T, ID extends Serializable> {
     List<T> findByProperty(Class<T> entityClass, String property, Object value);
 
     PageInfo<T> findPageExample(Integer page, Integer rows, Example example);
+
+    int insertSelective(T record);
 }

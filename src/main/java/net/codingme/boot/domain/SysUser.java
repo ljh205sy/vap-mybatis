@@ -1,7 +1,13 @@
 package net.codingme.boot.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 import java.util.List;
 
@@ -11,10 +17,12 @@ import java.util.List;
 @Table(name = "sys_user")
 public class SysUser {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String avatar;
 
+    @NotNull(message = "用户名称不能为空")
     private String username;
 
     private String password;
@@ -23,6 +31,8 @@ public class SysUser {
 
     private String name;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss", timezone = "GMT+8")
     private Date birthday;
 
     private Integer sex;
@@ -33,8 +43,13 @@ public class SysUser {
 
     private Integer status;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss", timezone = "GMT+8")
+
     private Date create_time;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd hh:mm:ss")
+    @JsonFormat(pattern = "yyyy-MM-dd hh:mm:ss", timezone = "GMT+8")
     private Date update_time;
 
     private List<SysRole> roles;
@@ -45,6 +60,14 @@ public class SysUser {
 
     public void setRoles(List<SysRole> roles) {
         this.roles = roles;
+    }
+
+    public SysUser(Integer id) {
+        this.id = id;
+    }
+
+    public SysUser() {
+
     }
 
     /**

@@ -34,7 +34,8 @@ public class SysUserMapperTest {
 
 
     /**
-     *  一个用户，拥有多个角色，这个有带点问题
+     *  延迟加载
+     * 一个用户，拥有多个角色，延迟加载，通过参数传递，然后第二次查询
      */
     @Test
     public void queryUserAndRoles() {
@@ -43,11 +44,17 @@ public class SysUserMapperTest {
             logger.info(String.format("用户信息： %s", sysUser));
             List<SysRole> roleList = sysUser.getRoles();
             for (SysRole sysRole : roleList) {
-                logger.info(String.format("角色信息： %s", sysRole.getId() + sysRole.getName()));
+                String u = sysUser.getId() + "," + sysUser.getUsername();
+                String r = sysRole.getId() + "," + sysRole.getName();
+                logger.info(String.format("用户信息： %s  , 角色信息： %s", u, r));
             }
         }
     }
 
+    /**
+     *  非延迟加载
+     * 通过用户，查询所有角色，非延迟加载
+     */
     @Test
     public void queryUserAndRolesById() {
         List<SysUser> userList = sysUserMapper.queryUserAndRolesById(48);
@@ -55,7 +62,9 @@ public class SysUserMapperTest {
             logger.info(String.format("用户信息： %s", sysUser));
             List<SysRole> roleList = sysUser.getRoles();
             for (SysRole sysRole : roleList) {
-                logger.info(String.format("角色信息： %s", sysRole.getId() + sysRole.getName()));
+                String u = sysUser.getId() + "," + sysUser.getUsername();
+                String r = sysRole.getId() + sysRole.getName();
+                logger.info(String.format("用户信息： %s  , 角色信息： %s", u, r));
             }
         }
     }
@@ -137,7 +146,7 @@ public class SysUserMapperTest {
     }
 
     /**
-     *  查询不到用户，抛出异常并捕获
+     * 查询不到用户，抛出异常并捕获
      */
     @Test(expected = UserNotExistException.class)
     public void testSelectOneException() {
@@ -161,7 +170,7 @@ public class SysUserMapperTest {
     }
 
     /**
-     *  删除sysUser表中的所有数据，【使用时需要注意】
+     * 删除sysUser表中的所有数据，【使用时需要注意】
      */
     @Test
     public void testDelete() {
@@ -170,14 +179,14 @@ public class SysUserMapperTest {
     }
 
     /**
-     *  Preparing: DELETE FROM sys_user WHERE id = ? AND avatar = ? AND username = ? AND password = ? AND salt = ? AND name = ? AND birthday = ? AND sex = ? AND email = ? AND phone = ? AND status = ? AND create_time = ? AND update_time = ?
+     * Preparing: DELETE FROM sys_user WHERE id = ? AND avatar = ? AND username = ? AND password = ? AND salt = ? AND name = ? AND birthday = ? AND sex = ? AND email = ? AND phone = ? AND status = ? AND create_time = ? AND update_time = ?
      * Parameters: null, null, mmmm(String), null, null, nn(String), null, null, null, null, null, null, null
      * <==    Updates: 0
-     *
+     * <p>
      * 删除对象
      */
     @Test
-    public void  testDeleteByPrimaryKey(){
+    public void testDeleteByPrimaryKey() {
         SysUser sysUser = new SysUser();
         sysUser.setName("nn");
         sysUser.setUsername("mmmm");
@@ -197,11 +206,11 @@ public class SysUserMapperTest {
     }
 
     /**
-     *   依靠条件的删除
-     *  删除usename 是like 字符串为"username"的数据
+     * 依靠条件的删除
+     * 删除usename 是like 字符串为"username"的数据
      */
     @Test
-    public void testDeleteByExample(){
+    public void testDeleteByExample() {
         SysUser sysUser = new SysUser();
         sysUser.setUsername("username");
 
@@ -216,10 +225,10 @@ public class SysUserMapperTest {
 
 
     /**
-     *  通过条件的example的查询方式，也可以在mapper中自定义sql语句并做java的对象映射
+     * 通过条件的example的查询方式，也可以在mapper中自定义sql语句并做java的对象映射
      */
     @Test
-    public void testSelectOneByExample(){
+    public void testSelectOneByExample() {
         SysUser sysUser = new SysUser();
         sysUser.setName("nn");
         sysUser.setUsername("mmmm");
@@ -244,6 +253,7 @@ public class SysUserMapperTest {
         SysUser user = sysUserMapper.selectByPrimaryKey(sysUser);
         System.out.println(user);
     }
+
     @Test
     public void queryUserByUsername() {
         SysUser sysUser = sysUserMapper.queryByUsername("test2");

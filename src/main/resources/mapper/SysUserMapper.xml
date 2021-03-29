@@ -57,14 +57,11 @@
     <!-- 通过ofType的属性 ，方式2 ， 结果集错误， 外键连接查询  -->
     <!-- 通过外键关联属性 ，方式2 ， 通过外键，查询了多次， Mybatis之collection标签嵌套查询(select, column)的写法  -->
     <resultMap id="userRoleResultMap1" type="net.codingme.boot.domain.SysUser" extends="BaseResultMap">
-        <!--            <collection property="roles" fetchType="lazy"  javaType="ArrayList" select="net.codingme.boot.dao.mapper.SysRoleMapper.queryRoleByRid" column="rid"/>-->
-        <collection property="roles" fetchType="lazy"  javaType="java.util.ArrayList"  select="net.codingme.boot.dao.mapper.SysRoleMapper.queryRoleByRid" column="rid"/>
+        <collection property="roles" fetchType="lazy"  javaType="java.util.ArrayList"  select="net.codingme.boot.dao.mapper.SysRoleMapper.queryRoleCollectionUid" column="id"/>
     </resultMap>
 
     <select id="queryUserAndRoles" resultMap="userRoleResultMap1">
-        select user.* , user_role.role_id  rid from sys_user   user
-        inner join sys_user_role   user_role
-        on user.id = user_role.user_id
+        select user.* from sys_user  user
     </select>
 
 

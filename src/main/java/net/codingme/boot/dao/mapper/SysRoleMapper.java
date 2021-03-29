@@ -14,4 +14,7 @@ public interface SysRoleMapper extends MybatisMapper<SysRole, Integer> {
      * @return
      */
     SysRole queryRoleByRid(Integer rid);
+
+
+    SysRole queryRoleCollectionUid(Integer uid);
 }

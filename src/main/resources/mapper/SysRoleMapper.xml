@@ -1,24 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="net.codingme.boot.dao.mapper.SysRoleMapper">
-  <resultMap id="BaseResultMap" type="net.codingme.boot.domain.SysRole">
-    <!--
-      WARNING - @mbg.generated
-    -->
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="name" jdbcType="VARCHAR" property="name" />
-    <result column="value" jdbcType="VARCHAR" property="value" />
-    <result column="tips" jdbcType="VARCHAR" property="tips" />
-    <result column="create_time" jdbcType="TIMESTAMP" property="create_time" />
-    <result column="update_time" jdbcType="TIMESTAMP" property="update_time" />
-    <result column="status" jdbcType="INTEGER" property="status" />
-  </resultMap>
+    <resultMap id="BaseResultMap" type="net.codingme.boot.domain.SysRole">
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="value" jdbcType="VARCHAR" property="value"/>
+        <result column="tips" jdbcType="VARCHAR" property="tips"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="create_time"/>
+        <result column="update_time" jdbcType="TIMESTAMP" property="update_time"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+    </resultMap>
 
 
-  <select id="queryRoleByRid" parameterType="integer" resultType="net.codingme.boot.domain.SysRole">
-    select * from sys_role
-    <where>
-      and id = #{rid}
-    </where>
-  </select>
+    <select id="queryRoleByRid" parameterType="integer" resultType="net.codingme.boot.domain.SysRole">
+        select * from sys_role
+        <where>
+            and id = #{rid}
+        </where>
+    </select>
+
+
+    <!-- 延迟加载-->
+    <select id="queryRoleCollectionUid" parameterType="integer" resultType="net.codingme.boot.domain.SysRole">
+        select role.* from sys_role role
+        inner join sys_user_role user_role
+        on role.id = user_role.role_id
+        inner join sys_user user
+        on user.id = user_role.user_id
+        <where>
+            and user.id = #{uid}
+        </where>
+    </select>
 </mapper>

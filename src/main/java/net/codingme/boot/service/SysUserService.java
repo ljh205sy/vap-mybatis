@@ -19,7 +19,7 @@ public interface SysUserService extends BaseService<SysUser, Integer>{
     /**
      * 通过Example进行查询操作
      */
-    List<SysUser>  querySelectByExample() ;
+    List<SysUser>  querySelectByUsernameExample(String username) ;
 
     int deleteUser(SysUser sysUser);
 

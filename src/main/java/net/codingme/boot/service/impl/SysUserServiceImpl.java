@@ -28,28 +28,23 @@ public class SysUserServiceImpl extends BaseServiceImpl<SysUser, Integer> implem
 
     @Override
     public List<SysUser> queryUserAndRoles() {
-        List<SysUser> userList = sysUserMapper.queryUserAndRoles();
-        return userList;
+        return sysUserMapper.queryUserAndRoles();
     }
 
     @Override
-    public List<SysUser> querySelectByExample() {
+    public List<SysUser> querySelectByUsernameExample(String username) {
         Example example = new Example(SysUser.class);
         Example.Criteria criteria = example.createCriteria();
-        SysUser sysUser = new SysUser();
-        sysUser.setUsername("test2");
         //模糊查询
-        if (!StringUtils.isEmpty(sysUser.getUsername())) {
-            criteria.andLike("username", "%" + sysUser.getUsername() + "%");
+        if (!StringUtils.isEmpty(username)) {
+            criteria.andLike("username", "%" + username + "%");
         }
-        List<SysUser> userList = sysUserMapper.selectByExample(example);
-        return userList;
+        return sysUserMapper.selectByExample(example);
     }
 
     @Override
     public int deleteUser(SysUser sysUser) {
-        int number = sysUserMapper.deleteByExample(sysUser);
-        return number;
+        return sysUserMapper.deleteByExample(sysUser);
     }
 
 }

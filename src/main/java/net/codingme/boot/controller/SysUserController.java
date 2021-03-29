@@ -71,14 +71,14 @@ public class SysUserController {
         return ResultUtil.success(true);
     }
 
-    @DeleteMapping("/{userid}}")
+    @DeleteMapping("/{uid}}")
     @ResponseBody
     @ApiImplicitParams({@ApiImplicitParam(name = "userid", value = "用户id")})
     @ApiOperation(value = "用户删除", notes = "删除用户")
-    public Result<Boolean> delete(@PathVariable @ApiParam("用户id") Integer userid) {
+    public Result<Boolean> delete(@PathVariable @ApiParam("用户id") Integer uid) {
         try {
             SysUser queryUser = new SysUser();
-            queryUser.setId(userid);
+            queryUser.setId(uid);
             SysUser sysUser = sysUserService.selectOne(queryUser);
             if (sysUser == null) {
                 throw new UserNotExistException();
